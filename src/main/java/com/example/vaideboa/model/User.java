@@ -1,10 +1,13 @@
 package com.example.vaideboa.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,4 +30,9 @@ public class User {
     private boolean contaNaoBloqueada = true;
     private boolean credenciaisNaoExpiradas = true;
     private boolean ativo = true;
+    // private boolean validacao
+    private char genero;
+    @OneToMany(mappedBy = "user")
+    private List<Avaliacao> avaliacoes;
+
 }
