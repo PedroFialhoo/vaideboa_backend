@@ -1,14 +1,13 @@
 package com.example.vaideboa.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.vaideboa.Dtos.UserDto;
 import com.example.vaideboa.service.UserService;
+
 
 
 @RestController
@@ -27,7 +26,7 @@ public class UserController {
         {
             return ResponseEntity.ok("Usuário criado com sucesso");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar Usuário"); 
+        return ResponseEntity.badRequest().body("Erro ao criar Usuário"); 
     }   
 
 }

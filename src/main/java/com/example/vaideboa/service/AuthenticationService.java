@@ -5,7 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.example.vaideboa.Dtos.UserDto;
+import com.example.vaideboa.Dtos.LoginResponseDto;
 import com.example.vaideboa.security.JwtService;
 
 @Service
@@ -19,12 +19,12 @@ public class AuthenticationService {
         this.jwtService = jwtService;
     }
 
-    public String authenticate(UserDto userDto) {
+    public String authenticate(LoginResponseDto loginResponseDto) {
 
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
-                userDto.getUsername(),
-                userDto.getPassword()
+                loginResponseDto.getUsername(),
+                loginResponseDto.getPassword()
             )
         );
 

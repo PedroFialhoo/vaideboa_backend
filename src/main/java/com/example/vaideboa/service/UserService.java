@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.vaideboa.Dtos.UserDto;
+import com.example.vaideboa.exception.EmailJaCadastradoException;
 import com.example.vaideboa.model.User;
 import com.example.vaideboa.repository.UserRepository;
 
@@ -17,6 +18,10 @@ public class UserService {
     }
 
     public boolean cadastrarUser(UserDto userDto){
+            if(userRepository.existsByUsername(userDto.getUsername())){
+        throw new EmailJaCadastradoException();
+    }
+
         String senhaCriptografada = passwordEncoder.encode(userDto.getPassword());
         User user = new User();
         user.setNome(userDto.getNome());
