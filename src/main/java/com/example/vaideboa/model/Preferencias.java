@@ -1,36 +1,38 @@
 package com.example.vaideboa.model;
 
+import com.example.vaideboa.model.enums.NivelPreferencia;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "avaliacao")
+@Table(name = "preferencias")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Avaliacao {
+public class Preferencias {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @Enumerated(EnumType.STRING)
+    private NivelPreferencia conversa;
+    @Enumerated(EnumType.STRING)
+    private NivelPreferencia musica;
+    @Enumerated(EnumType.STRING)
+    private NivelPreferencia cigarro;
+    @Enumerated(EnumType.STRING)
+    private NivelPreferencia animais;
     @JsonIgnore
+    @OneToOne
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "carona_id")
-    @JsonIgnore
-    private Carona carona; 
-    // definir o papel do user nessa avaliação ex motorista ou passageiro
-    private int estrela; // 4.5 1.0
-    private String mensagem;
 }

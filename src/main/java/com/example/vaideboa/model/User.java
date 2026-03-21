@@ -1,6 +1,9 @@
 package com.example.vaideboa.model;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,13 +30,26 @@ public class User {
     @Column(unique = true, nullable = false)
     private String username;
     private String password;
+    private String cpf;
+    private String telefone;
+    private LocalDate dataNascimento;
+    //private String foto; // caminho ou talvez guardar a foto mesmo
+    // foto do documento e selfie verificação manual por parte da equipe 
     private boolean contaNaoExpirada = true;
     private boolean contaNaoBloqueada = true;
     private boolean credenciaisNaoExpiradas = true;
     private boolean ativo = true;
-    // private boolean validacao
+    // private boolean validacao -> não sei ainda como vai funcionar a validação
     private String genero;
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Avaliacao> avaliacoes;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "motorista")
+    private List<Carona> minhasCaronas;
+    @OneToMany(mappedBy = "passageiro")
+    private List<Reserva> minhasReservas;
+    @JsonIgnore
+    @OneToOne
+    private Preferencias preferencia;
 }

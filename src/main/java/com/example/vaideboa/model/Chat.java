@@ -1,6 +1,7 @@
 package com.example.vaideboa.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.sql.Timestamp;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,28 +10,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "reserva")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Reserva {
+public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonIgnore
+    @OneToMany(mappedBy = "chat")
+    List<Mensagem> mensagens;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "motorista_id")
+    private User motorista;
+    @ManyToOne
+    @JoinColumn(name = "passageiro_id")
     private User passageiro;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "carona_id")
-    private Carona carona;
-    // pagamento
-   
-}
+    private Timestamp criadoEm;
+} 
