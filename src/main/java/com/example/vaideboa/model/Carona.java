@@ -2,12 +2,8 @@ package com.example.vaideboa.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-import org.locationtech.jts.geom.Point;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,10 +28,10 @@ public class Carona {
    private Long id; 
    private int qntAssentos;
    private LocalDateTime dataHora;
-   @Column(columnDefinition = "geometry(Point,4326)")
-   private Point saida;
-   @Column(columnDefinition = "geometry(Point,4326)")
-   private Point destino;
+ //  @Column(columnDefinition = "geometry(Point,4326)")
+   //private Point saida;
+   //@Column(columnDefinition = "geometry(Point,4326)")
+   //private Point destino;
    @JsonIgnore
    @OneToMany(mappedBy = "carona")
    private List<Avaliacao> avaliacoes;
@@ -43,4 +40,8 @@ public class Carona {
    @JoinColumn(name = "user_id")
    private User motorista; // criador da carona
    // gerar recibo talvez fique na parte de pagamento
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "rota_id")
+   @JsonIgnore
+   private Rota rota;
 }
